@@ -10,6 +10,7 @@ services:
       - db
     ports:
       - "5000:5000"
+    restart: always
     environment:
       - HOSTNAME=db
       - DB_USER=${MYSQL_USER}
@@ -22,6 +23,7 @@ services:
     image: "mysql:5"
     ports:
       - "${MYSQL_PORT}:${MYSQL_PORT}" 
+    restart: always
     environment:
       - MYSQL_ROOT_PASSWORD={MYSQL_ROOT_PASSWORD}
       - MYSQL_USER=${MYSQL_USER}

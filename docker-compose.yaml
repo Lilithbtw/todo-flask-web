@@ -1,0 +1,32 @@
+version: '3'
+networks:
+  web:
+    external: false
+    
+services:
+  web:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+    environment:
+      - HOSTNAME=db
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWD=${MYSQL_PASSWORD}
+      - MYSQL_PORT=${MYSQL_PORT}
+    networks:
+      - web
+      
+  db:
+    image: "mysql:5"
+    ports:
+      - "${MYSQL_PORT}:${MYSQL_PORT}" 
+    environment:
+      - MYSQL_ROOT_PASSWORD={MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_TCP_PORT=${MYSQL_PORT}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD} 
+      - MYSQL_DATABASE=${DATABSE_NAME}
+    networks:
+      - web
